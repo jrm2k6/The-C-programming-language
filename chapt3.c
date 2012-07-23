@@ -6,6 +6,10 @@
 int binsearch_modified(int x, int v[], int n);
 void escape(char t[]);
 void expand(char s1[]);
+void itob(int n, int b);
+void reverse(char from[]);
+void atoi_modified(int n, char s[], int width);
+void reverse_bis(char s[]);
 
 int main(int argc, char* argv[])
 {
@@ -17,9 +21,19 @@ int main(int argc, char* argv[])
   // printf("------ escape(s) ---\n");
   // escape("bonjour les \n   amis  \tca va");
 
-  printf("---- Exercise 3.3 ---\n");
-  printf("expand(s1,s2)\n");
-  expand("chA-Z9ma-xen");
+  //printf("---- Exercise 3.3 ---\n");
+  //printf("expand(s1,s2)\n");
+  //expand("chA-Z9ma-xen");
+
+  printf("----- Exercise 3.5 ---\n");
+  printf("itob(n,s,b)\n");
+  int i;
+  itob(12, 2);
+
+  printf("----- Exercise 3.6 ---\n");
+  printf("atoi_modified(int n, char s[], int width)\n");
+  char s[100];
+  atoi_modified(124, s, 5);
   
  return 0; 
 }
@@ -71,7 +85,7 @@ void escape(char t[])
 
 void expand(char s1[])
 {
-  char result[1000];
+  char result[100];
   char f,l;
   int i, j, ir;
   
@@ -102,4 +116,65 @@ void expand(char s1[])
   result[ir++] = '\0';
   printf("%s\n", result);
 }
+
+void itob(int n, int b)
+{
+  char c;
+  char result[100];
+  int i = 0;
+  while(n != 0)
+  {
+    c = n % b;
+    n /= b;
+    result[i++] = '0' + c;
+  }
+  result[i++] = '\0';
+  reverse(result);
+}
+
+void reverse(char from[])
+{
+  char result[100];
+  int i,j = 0;
+  for(i=strlen(from)-1; i >= 0 ; i--, j++)
+  {
+    result[j] = from[i];
+  }
+  result[j++] = '\0';
+  printf("%s\n", result);
+}
+
+void atoi_modified(int n, char s[], int width)
+{
+  int i, sign;
+    
+    if ((sign = n) < 0)
+        n = -n;
+    i = 0;
+    do {
+        s[i++] = n % 10 + '0';
+    } while ((n /= 10) > 0);
+    if (sign < 0)
+        s[i++] = '-';
+    
+    while (i < width )
+        s[i++] = '0';
+    
+    s[i] = '\0';
+    reverse_bis(s);
+    printf("%s\n", s);
+
+}
+
+void reverse_bis(char s[]) 
+{
+    int c, i, j;
+    for ( i = 0, j = strlen(s)-1; i < j; i++, j--) 
+    {
+      c = s[i];
+      s[i] = s[j];
+      s[j] = c;
+    }
+}
+
 
